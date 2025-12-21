@@ -1,49 +1,54 @@
-from django.shortcuts import render
-from django.views.generic import ListView,CreateView,DeleteView,UpdateView
-from .models import Task
-from django.urls import reverse_lazy
-from django.shortcuts import redirect,get_object_or_404
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.views import View
-# Create your views here.
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Task
 
-
-class HomePageView(LoginRequiredMixin,ListView):
+# صفحه اصلی - فقط تسک‌های کاربر فعلی
+class HomePageView(LoginRequiredMixin, ListView):
     model = Task
     template_name = 'index.html'
     context_object_name = 'tasks'
-    
-    
-class CreateTaskView(CreateView):
+
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
+
+# ایجاد تسک جدید
+class CreateTaskView(LoginRequiredMixin, CreateView):
     model = Task
     fields = ["task"]
     template_name = "index.html"
     success_url = reverse_lazy("todo:home")
-    
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-class DeleteTaskView(DeleteView):
+# حذف تسک - فقط توسط صاحب آن
+class DeleteTaskView(LoginRequiredMixin, DeleteView):
     model = Task
     success_url = reverse_lazy("todo:home")
+
     def get(self, request, pk, *args, **kwargs):
-        task = get_object_or_404(Task, pk=pk)
+        task = get_object_or_404(Task, pk=pk, user=request.user)
         task.delete()
         return redirect('todo:home')
-    
-    
-class UpdateTaskView(UpdateView):
+
+# ویرایش تسک - فقط توسط صاحب آن
+class UpdateTaskView(LoginRequiredMixin, UpdateView):
     model = Task
     fields = ['task']
-    success_url = reverse_lazy("todo:home")
     template_name = "update.html"
+    success_url = reverse_lazy("todo:home")
 
+    def get_queryset(self):
+        return Task.objects.filter(user=self.request.user)
 
-class TaskCompleteView(View):
-    model = Task
+# تغییر وضعیت انجام شده / انجام نشده - فقط توسط صاحب آن
+class TaskCompleteView(LoginRequiredMixin, View):
     def get(self, request, pk, *args, **kwargs):
-        task = get_object_or_404(Task, pk=pk)
+        task = get_object_or_404(Task, pk=pk, user=request.user)
         task.status = not task.status
         task.save()
         return redirect('todo:home')
