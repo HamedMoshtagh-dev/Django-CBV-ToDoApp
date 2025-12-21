@@ -60,10 +60,9 @@ http://127.0.0.1:8000/
 
 
 📸 Demo
-Add screenshots or GIFs here to showcase:
-- Task list page
-- Login/Signup page
-- Create/Edit/Delete task
+### Project Demo
+
+![alt text](90-120.gif) ![alt text](0-30.gif) ![alt text](30-60.gif) ![alt text](60-90.gif)
 
 👨‍💻 Author
 Developed by Hamed ✨
