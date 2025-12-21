@@ -5,7 +5,6 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Task
 
-# صفحه اصلی - فقط تسک‌های کاربر فعلی
 class HomePageView(LoginRequiredMixin, ListView):
     model = Task
     template_name = 'index.html'
@@ -14,7 +13,6 @@ class HomePageView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Task.objects.filter(user=self.request.user)
 
-# ایجاد تسک جدید
 class CreateTaskView(LoginRequiredMixin, CreateView):
     model = Task
     fields = ["task"]
@@ -25,7 +23,7 @@ class CreateTaskView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
-# حذف تسک - فقط توسط صاحب آن
+
 class DeleteTaskView(LoginRequiredMixin, DeleteView):
     model = Task
     success_url = reverse_lazy("todo:home")
@@ -35,7 +33,7 @@ class DeleteTaskView(LoginRequiredMixin, DeleteView):
         task.delete()
         return redirect('todo:home')
 
-# ویرایش تسک - فقط توسط صاحب آن
+
 class UpdateTaskView(LoginRequiredMixin, UpdateView):
     model = Task
     fields = ['task']
@@ -44,8 +42,6 @@ class UpdateTaskView(LoginRequiredMixin, UpdateView):
 
     def get_queryset(self):
         return Task.objects.filter(user=self.request.user)
-
-# تغییر وضعیت انجام شده / انجام نشده - فقط توسط صاحب آن
 class TaskCompleteView(LoginRequiredMixin, View):
     def get(self, request, pk, *args, **kwargs):
         task = get_object_or_404(Task, pk=pk, user=request.user)
