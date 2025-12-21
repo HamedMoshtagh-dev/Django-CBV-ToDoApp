@@ -1,6 +1,6 @@
 # Django-CBV-ToDoApp
 This is a Simple To Do App with Django
-
+---
 📝 Todo List (CBV)
 📌 Project Overview
 This project is a simple yet powerful Todo List application built with Django Class Based Views (CBV).
