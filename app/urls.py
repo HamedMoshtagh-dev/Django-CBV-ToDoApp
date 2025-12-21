@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import HomePageView,CreateTaskView,DeleteTaskView,UpdateTaskView,TaskCompleteView
+app_name = 'todo'
 
 urlpatterns = [
     path('',HomePageView.as_view(),name='home'),

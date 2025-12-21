@@ -27,15 +27,15 @@
                 ⬜
               {% endif %}
             </span>
-            <a href="{% url 'status' pk=task.id %}" class="btn btn-sm btn-outline-success"><i class="fa fa-exchange" aria-hidden="true"></i></a>
+            <a href="{% url 'todo:status' pk=task.id %}" class="btn btn-sm btn-outline-success"><i class="fa fa-exchange" aria-hidden="true"></i></a>
             <div class="icons d-flex gap-2">
-              <a href="{% url 'update' task.id %}" class="text-warning"><i class="far fa-edit"></i></a>
-              <a href="{% url 'delete' task.id %}" class="text-danger"><i class="far fa-trash-alt"></i></a>
+              <a href="{% url 'todo:update' task.id %}" class="text-warning"><i class="far fa-edit"></i></a>
+              <a href="{% url 'todo:delete' task.id %}" class="text-danger"><i class="far fa-trash-alt"></i></a>
             </div>
           </li>
         </ul>
       {% endfor %}
-      <form class="add text-center my-4" method="post" action="{% url 'create' %}">
+      <form class="add text-center my-4" method="post" action="{% url 'todo:create' %}">
         {% csrf_token %}
         <label class="text-light">Add a new todo...</label>
         <input class="form-control m-auto" type="text" name="task" />
