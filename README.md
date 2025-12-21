@@ -26,6 +26,7 @@ It provides complete CRUD functionality (Create, Read, Update, Delete) for manag
 ## 📦⚙️ Installation & Setup
 
 1- Clone the repository:
+```bash
 git clone <https://github.com/HamedMoshtagh-dev/Django-CBV-ToDoApp.git>
 cd todo-list-cbv
 
