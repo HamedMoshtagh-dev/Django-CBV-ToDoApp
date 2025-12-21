@@ -61,8 +61,7 @@ http://127.0.0.1:8000/
 
 📸 Demo
 ### Project Demo
-
-![alt text](90-120.gif) ![alt text](0-30.gif) ![alt text](30-60.gif) ![alt text](60-90.gif)
+![DEMO](demo/demo.gif)
 
 👨‍💻 Author
 Developed by Hamed ✨
