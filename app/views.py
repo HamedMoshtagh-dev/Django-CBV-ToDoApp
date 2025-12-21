@@ -44,6 +44,6 @@ class TaskCompleteView(View):
     model = Task
     def get(self, request, pk, *args, **kwargs):
         task = get_object_or_404(Task, pk=pk)
-        task.status = not task.status  # تغییر وضعیت
+        task.status = not task.status
         task.save()
         return redirect('todo:home')
